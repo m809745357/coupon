@@ -1,0 +1,12 @@
+{
+    "name": "lian/coupon",
+    "description": "一个公用的优惠券管理工具",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shenyifei",
+            "email": "m809745357@gmail.com"
+        }
+    ],
+    "require": {}
+}
