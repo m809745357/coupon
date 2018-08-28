@@ -29,5 +29,12 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lian\\Coupon\\CouponServiceProvider"
+            ]
+        }
     }
 }

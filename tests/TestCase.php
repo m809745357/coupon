@@ -21,6 +21,8 @@ class TestCase extends Orchestra
         $this->loadLaravelMigrations();
 
         $this->user = User::create(['email' => 'm809745357@gmail.com', 'name' => 'm809745357', 'password' => bcrypt('password')]);
+
+        auth()->login($this->user);
     }
 
     /**

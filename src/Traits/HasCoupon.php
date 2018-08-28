@@ -2,6 +2,7 @@
 
 namespace Lian\Coupon\Traits;
 
+use InvalidArgumentException;
 use Lian\Coupon\Models\Coupon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -23,9 +24,43 @@ trait HasCoupon
      * @param array $coupon
      * @return Coupon
      */
-    public function addCoupon(array $coupon) : Coupon
+    public function addCoupon($coupon) : Coupon
     {
+        if (!\is_array($coupon)) {
+            throw new InvalidArgumentException('Invalid coupon: ' . $coupon);
+        }
+
         return $this->coupons()->create($coupon);
+    }
+
+    /**
+     * 新增优惠券
+     *
+     * @param float $amount
+     * @param integer $distance
+     * @param string $title
+     * @return void
+     */
+    public function addCouponOnce($amount, $distance = 7, $title = '')
+    {
+        if (!\is_float($amount)) {
+            throw new InvalidArgumentException('Invalid amount: ' . $amount);
+        }
+
+        if (!\is_numeric($distance)) {
+            throw new InvalidArgumentException('Invalid distance: ' . $distance);
+        }
+
+        if (!\is_string($title)) {
+            throw new InvalidArgumentException('Invalid title: ' . $title);
+        }
+
+        return $this->coupons()->create([
+            'amount' => $amount,
+            'start_time' => now(),
+            'end_time' => now()->addDays($distance),
+            'title' => $title
+        ]);
     }
 
     /**

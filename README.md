@@ -3,15 +3,87 @@
 <p align="center"> 一个公用的优惠券管理工具.</p>
 
 
-## Installing
+## 安装
 
 ```shell
 $ composer require lian/coupon -vvv
 ```
 
-## Usage
+## 使用
 
-TODO
+发布 migration 文件
+
+```shell
+php artisan vendor:publish --provider="Lian\CouponCouponServiceProvider" --tag="migrations"
+```
+
+发布 config 文件
+
+```shell
+php artisan vendor:publish --provider="Lian\CouponCouponServiceProvider" --tag="config"
+```
+
+修改配置文件
+
+config/coupon.php
+
+```php
+<?php
+
+return [
+    'model' => \App\User::class //修改成自己的 User 模型 eg. \App\Models\User::class
+];
+
+```
+
+增加 trait
+
+```php
+use Lian\Coupon\Traits\HasCoupon;
+...
+use HasCoupon
+```
+
+可以使用的方法
+
+```php
+
+// 用户创建优惠券
+$user->addCoupon([
+    'title' => 'this is a title',
+    'amount' => 1.00,
+    'start_time' => now(),
+    'end_time' -> now()->addDays(7)
+]);
+
+// or
+$user->addCouponOnce(1.00); // 默认 7 天
+
+$user->addCouponOnce(1.00, 7);
+
+$user->addCouponOnce(1.00, 7, 'this is a title');
+
+// 用户领取优惠券
+$user->receiveCoupon($coupon);
+
+// 判断优惠券是否使用
+$coupon->isBeUsed();
+
+// 判断优惠券是否过期
+$coupon->isBeOverdue();
+
+// 使用优惠券
+$coupon->apply();
+
+// 获取优惠券到期时间
+$coupon->distanceEndTime();
+```
+
+## 测试
+
+```shell
+$ composer test
+```
 
 ## Contributing
 

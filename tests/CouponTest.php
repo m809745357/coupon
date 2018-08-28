@@ -2,9 +2,11 @@
 
 namespace Lian\Coupon\Test;
 
-use Lian\Coupon\CouponRegistrar;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use InvalidArgumentException;
 use Lian\Coupon\Models\Coupon;
+use Lian\Coupon\Exceptions\CouponAlreadyUsed;
+use Lian\Coupon\Exceptions\CouponAlreadyOverdue;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CouponTest extends TestCase
 {
@@ -18,11 +20,54 @@ class CouponTest extends TestCase
      */
     public function testCreateCoupon()
     {
-        $attributes = factory(Coupon::class)->make(['user_id' => $this->user->id])->toArray();
+        $attributes = factory(Coupon::class)->make()->toArray();
 
-        $this->app[CouponRegistrar::class]->create($attributes);
+        $this->user->addCoupon($attributes);
 
         $this->assertDatabaseHas('coupons', $attributes);
+
+        $this->user->addCouponOnce(1.00, 7, 'this is a title');
+
+        $this->assertDatabaseHas('coupons', ['amount' => 1.00, 'title' => 'this is a title']);
+    }
+
+    /**
+     * 测试异常的创建优惠券
+     *
+     * @return void
+     */
+    public function testCreateCouponInvalidArgumentAmount()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid amount: 1');
+
+        $this->user->addCouponOnce(1);
+    }
+
+    /**
+     * 测试异常的创建优惠券
+     *
+     * @return void
+     */
+    public function testCreateCouponInvalidArgumentDistance()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid distance');
+
+        $this->user->addCouponOnce(1.00, 'test');
+    }
+
+    /**
+     * 测试异常的创建优惠券
+     *
+     * @return void
+     */
+    public function testCreateCouponInvalidArgumentTitle()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid title');
+
+        $this->user->addCouponOnce(1.00, 7, 1);
     }
 
     /**
@@ -33,9 +78,9 @@ class CouponTest extends TestCase
      */
     public function testCouponBelongsToUser()
     {
-        $attributes = factory(Coupon::class)->make(['user_id' => $this->user->id])->toArray();
+        $attributes = factory(Coupon::class)->make()->toArray();
 
-        $this->app[CouponRegistrar::class]->create($attributes);
+        $this->user->addCoupon($attributes);
 
         $this->assertInstanceOf(
             'Lian\Coupon\Test\User',
@@ -50,9 +95,9 @@ class CouponTest extends TestCase
      */
     public function testUserHasManyCoupon()
     {
-        $attributes = factory(Coupon::class)->make(['user_id' => $this->user->id])->toArray();
+        $attributes = factory(Coupon::class)->make()->toArray();
 
-        $this->app[CouponRegistrar::class]->create($attributes);
+        $this->user->addCoupon($attributes);
 
         $this->assertInstanceOf(
             'Illuminate\Database\Eloquent\Collection',
@@ -82,11 +127,9 @@ class CouponTest extends TestCase
      */
     public function testCreateCouponNotHasUser()
     {
-        $attributes = factory(Coupon::class)->make()->toArray();
+        $coupon = factory(Coupon::class)->create();
 
-        $this->app[CouponRegistrar::class]->create($attributes);
-
-        $this->assertDatabaseHas('coupons', $attributes);
+        $this->assertDatabaseHas('coupons', $coupon->toArray());
 
         $this->assertDatabaseMissing('coupons', ['user_id' => $this->user->id]);
     }
@@ -105,5 +148,90 @@ class CouponTest extends TestCase
         $this->user->receiveCoupon($coupon);
 
         $this->assertDatabaseHas('coupons', ['user_id' => $this->user->id]);
+    }
+
+    /**
+     * 测试用户领取的优惠券过期
+     *
+     * @return void
+     */
+    public function testCouponHasBeOverdue()
+    {
+        $coupon = factory(Coupon::class)->create([
+            'start_time' => now()->subDays(7),
+            'end_time' => now()->subDay(),
+        ]);
+
+        $this->assertTrue($coupon->isBeOverdue());
+    }
+
+    /**
+     * 测试距离优惠券失效时间
+     *
+     * @return void
+     */
+    public function testCouponEndTimeDiffForHumans()
+    {
+        $now = now();
+
+        $coupon = factory(Coupon::class)->create([
+            'start_time' => $now->subDays(7),
+            'end_time' => $now->subDay(),
+        ]);
+
+        $this->assertTrue($now->addDays(7)->diffForHumans() == $coupon->distanceEndTime());
+    }
+
+    /**
+     * 测试优惠券可以被使用
+     *
+     * @return void
+     */
+    public function testCouponHasBeUsed()
+    {
+        $coupon = factory(Coupon::class)->create(['user_id' => $this->user->id]);
+
+        $coupon->apply();
+
+        $this->assertDatabaseHas('coupons', ['user_id' => $this->user->id, 'status' => 1]);
+    }
+
+    /**
+     * 测试优惠券已经被使用
+     *
+     * @return void
+     */
+    public function testCouponHasBeAlreadyUsed()
+    {
+        $coupon = factory(Coupon::class)->create(['user_id' => $this->user->id, 'status' => 2]);
+
+        $this->expectException(CouponAlreadyUsed::class);
+        $this->expectExceptionMessage('coupon has already be used!');
+
+        $coupon->apply();
+    }
+
+    /**
+     * 测试优惠券已过期并修改
+     *
+     * @return void
+     */
+    public function testCouponHasBeAlreadyOverdue()
+    {
+        $now = now();
+
+        $coupon = factory(Coupon::class)->create([
+            'user_id' => $this->user->id,
+            'start_time' => $now->subDays(7),
+            'end_time' => $now->subDay(),
+            'status' => 1,
+        ]);
+
+        $this->expectException(CouponAlreadyOverdue::class);
+        $this->expectExceptionMessage('coupon has already be overdue!');
+
+        $coupon->apply();
+
+        $this->assertDatabaseHas('coupons', ['user_id' => $this->user->id, 'status' => 3]);
     }
 }
