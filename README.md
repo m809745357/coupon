@@ -2,6 +2,14 @@
 
 <p align="center"> 一个公用的优惠券管理工具.</p>
 
+<p align="center">
+[![Build Status](https://travis-ci.org/m809745357/coupon.svg?branch=master)](https://travis-ci.org/m809745357/coupon)
+![StyleCI build status](https://github.styleci.io/repos/146409515/shield)
+[![Latest Stable Version](https://poser.pugx.org/lian/coupon/v/stable)](https://packagist.org/packages/lian/coupon)
+[![Total Downloads](https://poser.pugx.org/lian/coupon/downloads)](https://packagist.org/packages/lian/coupon)
+[![Latest Unstable Version](https://poser.pugx.org/lian/coupon/v/unstable)](https://packagist.org/packages/lian/coupon)
+[![License](https://poser.pugx.org/lian/coupon/license)](https://packagist.org/packages/lian/coupon)
+</p>
 
 ## 安装
 
@@ -89,8 +97,8 @@ $ composer test
 
 You can contribute in one of three ways:
 
-1. File bug reports using the [issue tracker](https://github.com/lian/coupon/issues).
-2. Answer questions or fix bugs on the [issue tracker](https://github.com/lian/coupon/issues).
+1. File bug reports using the [issue tracker](https://github.com/m809745357/coupon/issues).
+2. Answer questions or fix bugs on the [issue tracker](https://github.com/m809745357/coupon/issues).
 3. Contribute new features or update the wiki.
 
 _The code contribution process is not very formal. You just need to make sure that you follow the PSR-0, PSR-1, and PSR-2 coding guidelines. Any new code contributions must be accompanied by unit tests where applicable._
