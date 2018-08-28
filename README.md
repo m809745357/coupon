@@ -2,14 +2,12 @@
 
 <p align="center"> 一个公用的优惠券管理工具.</p>
 
-<p align="center">
 [![Build Status](https://travis-ci.org/m809745357/coupon.svg?branch=master)](https://travis-ci.org/m809745357/coupon)
 ![StyleCI build status](https://github.styleci.io/repos/146409515/shield)
 [![Latest Stable Version](https://poser.pugx.org/lian/coupon/v/stable)](https://packagist.org/packages/lian/coupon)
 [![Total Downloads](https://poser.pugx.org/lian/coupon/downloads)](https://packagist.org/packages/lian/coupon)
 [![Latest Unstable Version](https://poser.pugx.org/lian/coupon/v/unstable)](https://packagist.org/packages/lian/coupon)
 [![License](https://poser.pugx.org/lian/coupon/license)](https://packagist.org/packages/lian/coupon)
-</p>
 
 ## 安装
 
