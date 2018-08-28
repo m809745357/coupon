@@ -13,10 +13,9 @@ class CouponTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 测试创建优惠券
+     * 测试创建优惠券.
      *
      * @test
-     * @return void
      */
     public function testCreateCoupon()
     {
@@ -32,9 +31,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试异常的创建优惠券
-     *
-     * @return void
+     * 测试异常的创建优惠券.
      */
     public function testCreateCouponInvalidArgumentAmount()
     {
@@ -45,9 +42,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试异常的创建优惠券
-     *
-     * @return void
+     * 测试异常的创建优惠券.
      */
     public function testCreateCouponInvalidArgumentDistance()
     {
@@ -58,9 +53,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试异常的创建优惠券
-     *
-     * @return void
+     * 测试异常的创建优惠券.
      */
     public function testCreateCouponInvalidArgumentTitle()
     {
@@ -71,10 +64,9 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试优惠券属于用户
+     * 测试优惠券属于用户.
      *
      * @test
-     * @return void
      */
     public function testCouponBelongsToUser()
     {
@@ -89,9 +81,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试用户有多张优惠券
-     *
-     * @return void
+     * 测试用户有多张优惠券.
      */
     public function testUserHasManyCoupon()
     {
@@ -106,9 +96,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试用户添加优惠券
-     *
-     * @return void
+     * 测试用户添加优惠券.
      */
     public function testUserAddCoupon()
     {
@@ -121,9 +109,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试创建没有领取的优惠券
-     *
-     * @return void
+     * 测试创建没有领取的优惠券.
      */
     public function testCreateCouponNotHasUser()
     {
@@ -135,9 +121,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试用户领取优惠券
-     *
-     * @return void
+     * 测试用户领取优惠券.
      */
     public function testUserAssociateCoupon()
     {
@@ -152,8 +136,6 @@ class CouponTest extends TestCase
 
     /**
      * 测试用户领取的优惠券过期
-     *
-     * @return void
      */
     public function testCouponHasBeOverdue()
     {
@@ -166,9 +148,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试距离优惠券失效时间
-     *
-     * @return void
+     * 测试距离优惠券失效时间.
      */
     public function testCouponEndTimeDiffForHumans()
     {
@@ -183,9 +163,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试优惠券可以被使用
-     *
-     * @return void
+     * 测试优惠券可以被使用.
      */
     public function testCouponHasBeUsed()
     {
@@ -197,9 +175,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试优惠券已经被使用
-     *
-     * @return void
+     * 测试优惠券已经被使用.
      */
     public function testCouponHasBeAlreadyUsed()
     {
@@ -212,9 +188,7 @@ class CouponTest extends TestCase
     }
 
     /**
-     * 测试优惠券已过期并修改
-     *
-     * @return void
+     * 测试优惠券已过期并修改.
      */
     public function testCouponHasBeAlreadyOverdue()
     {
