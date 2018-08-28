@@ -15,11 +15,11 @@ class Coupon extends Model
     protected $table = 'coupons';
 
     /**
-     * 用户关联优惠券表
+     * 用户关联优惠券表.
      *
      * @return BelongsTo
      */
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(config('coupon.model'), 'user_id', 'id');
     }
@@ -27,9 +27,9 @@ class Coupon extends Model
     /**
      * 判断用户优惠券是否过期
      *
-     * @return boolean
+     * @return bool
      */
-    public function isBeOverdue() : bool
+    public function isBeOverdue(): bool
     {
         return now()->gt(Carbon::parse($this->end_time));
     }
@@ -37,27 +37,25 @@ class Coupon extends Model
     /**
      * 判断用户优惠券是否过期
      *
-     * @return boolean
+     * @return bool
      */
-    public function isBeUsed() : bool
+    public function isBeUsed(): bool
     {
-        return $this->status == 2;
+        return 2 == $this->status;
     }
 
     /**
-     * 获取用户优惠券到期时间
+     * 获取用户优惠券到期时间.
      *
      * @return string
      */
-    public function distanceEndTime() : string
+    public function distanceEndTime(): string
     {
         return Carbon::parse($this->end_time)->diffForHumans();
     }
 
     /**
-     * 使用优惠券
-     *
-     * @return void
+     * 使用优惠券.
      */
     public function apply()
     {
@@ -67,6 +65,7 @@ class Coupon extends Model
 
         if ($this->isBeOverdue()) {
             $this->update(['status' => 3]);
+
             throw new CouponAlreadyOverdue('coupon has already be overdue!');
         }
 

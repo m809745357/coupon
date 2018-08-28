@@ -12,12 +12,15 @@ use Lian\Coupon\Traits\HasCoupon;
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
     use Authorizable, Authenticatable, HasCoupon;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = ['email', 'name', 'password'];
+
     public $timestamps = false;
+
     protected $table = 'users';
 }
