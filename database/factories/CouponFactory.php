@@ -9,6 +9,6 @@ $factory->define(Coupon::class, function (Faker $faker) {
         'amount' => $faker->randomFloat(2, $min = 0, $max = 10),
         'status' => 1,
         'start_time' => now(),
-        'end_time' => now()->addDays(7)
+        'end_time' => now()->addDays(7),
     ];
 });

@@ -15,8 +15,8 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->withFactories(__DIR__ . '/../database/factories');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->withFactories(__DIR__.'/../database/factories');
 
         $this->loadLaravelMigrations();
 
@@ -28,8 +28,7 @@ class TestCase extends Orchestra
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
+     * @param \Illuminate\Foundation\Application $app
      */
     protected function getEnvironmentSetUp($app)
     {
