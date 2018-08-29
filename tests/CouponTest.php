@@ -36,6 +36,11 @@ class CouponTest extends TestCase
         $this->user->addCouponOnce(1.00, 7, 'this is a title');
 
         $this->assertDatabaseHas('coupons', ['amount' => 1.00, 'title' => 'this is a title']);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid coupon: 1');
+
+        $this->user->addCoupon(1);
     }
 
     /**
