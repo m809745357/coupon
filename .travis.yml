@@ -11,4 +11,8 @@ sudo: false  # 使用使用 sudo 模式
 install: travis_retry composer install --no-interaction --prefer-source
 
 # 主要构建命令
-script: vendor/bin/phpunit --verbose
+script: vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
+
+after_success:
+    - export CODECOV_TOKEN="a46c8ac5-b329-4027-9d6a-af55b56d2341"
+    - bash <(curl -s https://codecov.io/bash)
