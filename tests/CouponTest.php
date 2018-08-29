@@ -1,12 +1,20 @@
 <?php
 
+/*
+ * This file is part of the lian/coupon.
+ *
+ * (c) shenyifei <m809745357@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Lian\Coupon\Test;
 
-use InvalidArgumentException;
-use Lian\Coupon\Models\Coupon;
-use Lian\Coupon\Exceptions\CouponAlreadyUsed;
-use Lian\Coupon\Exceptions\CouponAlreadyOverdue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InvalidArgumentException;
+use Lian\Coupon\Exceptions\CouponAlreadyOverdue;
+use Lian\Coupon\Exceptions\CouponAlreadyUsed;
+use Lian\Coupon\Models\Coupon;
 
 class CouponTest extends TestCase
 {

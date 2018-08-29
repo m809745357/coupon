@@ -37,7 +37,11 @@ config/coupon.php
 <?php
 
 return [
-    'model' => \App\User::class //修改成自己的 User 模型 eg. \App\Models\User::class
+    'model' => \App\User::class, //修改成自己的 User 模型 eg. \App\Models\User::class
+    
+    'distance' => 7,
+
+    'title' => 'coupon',
 ];
 
 ```
@@ -45,14 +49,17 @@ return [
 增加 trait
 
 ```php
+<?php
+
 use Lian\Coupon\Traits\HasCoupon;
 ...
-use HasCoupon
+use HasCoupon;
 ```
 
 可以使用的方法
 
 ```php
+<?php
 
 // 用户创建优惠券
 $user->addCoupon([
@@ -65,7 +72,7 @@ $user->addCoupon([
 // or
 $user->addCouponOnce(1.00); // 默认 7 天
 
-$user->addCouponOnce(1.00, 7);
+$user->addCouponOnce(1.00, 7); // 默认标题 coupon
 
 $user->addCouponOnce(1.00, 7, 'this is a title');
 

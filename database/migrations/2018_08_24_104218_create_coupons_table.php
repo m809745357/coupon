@@ -1,8 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+/*
+ * This file is part of the lian/coupon.
+ *
+ * (c) shenyifei <m809745357@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCouponsTable extends Migration
 {

@@ -1,12 +1,20 @@
 <?php
 
+/*
+ * This file is part of the lian/coupon.
+ *
+ * (c) shenyifei <m809745357@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Lian\Coupon\Models;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Lian\Coupon\Exceptions\CouponAlreadyUsed;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Lian\Coupon\Exceptions\CouponAlreadyOverdue;
+use Lian\Coupon\Exceptions\CouponAlreadyUsed;
 
 class Coupon extends Model
 {

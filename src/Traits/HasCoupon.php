@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * This file is part of the lian/coupon.
+ *
+ * (c) shenyifei <m809745357@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Lian\Coupon\Traits;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
 use Lian\Coupon\Models\Coupon;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait HasCoupon
 {
@@ -41,8 +49,11 @@ trait HasCoupon
      * @param int    $distance
      * @param string $title
      */
-    public function addCouponOnce($amount, $distance = 7, $title = '')
+    public function addCouponOnce($amount, $distance = 0, $title = '')
     {
+        $distance || $distance = config('coupon.distance');
+        $title || $title = config('coupon.title');
+
         if (!\is_float($amount)) {
             throw new InvalidArgumentException('Invalid amount: '.$amount);
         }
