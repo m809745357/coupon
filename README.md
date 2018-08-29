@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/m809745357/coupon.svg?branch=master)](https://travis-ci.org/m809745357/coupon)
 ![StyleCI build status](https://github.styleci.io/repos/146409515/shield)
 [![codecov](https://codecov.io/gh/m809745357/coupon/branch/master/graph/badge.svg)](https://codecov.io/gh/m809745357/coupon)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5d1c0c2d661346a0953e7025c14f4318)](https://www.codacy.com/app/m809745357/coupon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=m809745357/coupon&amp;utm_campaign=Badge_Grade)
 [![Latest Stable Version](https://poser.pugx.org/lian/coupon/v/stable)](https://packagist.org/packages/lian/coupon)
 [![Total Downloads](https://poser.pugx.org/lian/coupon/downloads)](https://packagist.org/packages/lian/coupon)
 [![Latest Unstable Version](https://poser.pugx.org/lian/coupon/v/unstable)](https://packagist.org/packages/lian/coupon)
