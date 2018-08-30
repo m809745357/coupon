@@ -1,5 +1,7 @@
 <h1 align="center"> coupon </h1>
 
+![Image text](https://raw.githubusercontent.com/m809745357/coupon/master/images/carbon.png)
+
 <p align="center"> 一个公用的优惠券管理工具.</p>
 
 [![Build Status](https://travis-ci.org/m809745357/coupon.svg?branch=master)](https://travis-ci.org/m809745357/coupon)
